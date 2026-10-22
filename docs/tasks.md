@@ -1,0 +1,101 @@
+# ClashPoint Delivery Tasks
+
+Historical checklist inherited from the earlier project. For this edition use `HACKATHON_PLAN.md`; the checked legacy items below do not establish AWS integration, real-model performance, hosting or eligibility.
+
+The implementation order is binding. P0 is required for the hackathon demo; P1 is optional only after every P0 acceptance condition passes.
+
+## Phase 0 — Documentation (P0)
+
+- [x] **DOC-01** Create `README.md`. Acceptance: setup, demo, deployment, browser support, and fallback instructions are explicit.
+- [x] **DOC-02** Create `agent.md`. Acceptance: context, permission, evidence, freshness, failure, and visual invariants are unambiguous.
+- [x] **DOC-03** Create `docs/design.md`. Acceptance: tokens, states, wireframe, contracts, fixtures, and screenshots are specified.
+- [x] **DOC-04** Create `docs/tasks.md`. Acceptance: every build phase has measurable completion criteria.
+
+## Phase 1 — Application and static shell (P0)
+
+- [x] **APP-01** Scaffold Next.js, TypeScript, Tailwind, linting, Vitest, and Playwright. Depends: DOC-01–04. Acceptance: dev server and production build start cleanly.
+- [x] **UI-01** Build consent/start screen. Depends: APP-01. Acceptance: disclosure, meeting, two labeled demo sources, mode choice, and start action are keyboard accessible.
+- [x] **UI-02** Build console layout and tokens. Depends: APP-01. Acceptance: 36/64 desktop split, fixed header/control rail, responsive stack, no generic AI decoration.
+- [x] **UI-03** Build transcript, current event, card, activity, composer, and drawer components. Depends: UI-02. Acceptance: all design states render from fixture props and drawer is keyboard operable.
+- [x] **UI-03A** Extract decision and control UI seams. Acceptance: Judge Guide, Resolution Card, Evidence Drawer, and Control Rail are independently owned components with visual and behavioural parity.
+
+## Phase 2 — Deterministic pipeline (P0)
+
+- [x] **CORE-01** Add shared Zod schemas. Acceptance: valid contracts parse and unknown enum values fail.
+- [x] **CORE-02** Add server facts, variants, and ACL filtering. Depends: CORE-01. Acceptance: restricted fact never appears for `demo_product`; approval variant supersedes the blocker.
+- [x] **CORE-03** Add dialogue resolver and decision gate. Depends: CORE-01. Acceptance: operational “Yeah,” non-operational “Yeah,” tentative language, dates, and reversals match fixtures.
+- [x] **CORE-04** Add retrieval and deterministic collision checks. Depends: CORE-02–03. Acceptance: status, policy, capacity, ownership, dependency, and freshness fixtures return exact IDs.
+- [x] **CORE-05** Add verifier and resolution-card builder. Depends: CORE-04. Acceptance: every evidence quote equals its stored fact; invalid IDs cannot create cards.
+- [x] **API-01** Add `POST /api/analyze-turn`. Depends: CORE-01–05. Acceptance: request/response validation, eight-turn bound, timings, and honest semantic state are enforced.
+- [x] **UI-04** Connect console to API. Depends: UI-03, API-01. Acceptance: all golden turns create the intended transcript/event/card state.
+- [x] **UI-05** Add compact decision history and Guided Judge Mode. Depends: UI-04. Acceptance: newest card remains expanded, older cards are recoverable, and Context → Policy → Capacity advances from actual evidence IDs.
+
+## Phase 3 — Input modes (P0)
+
+- [x] **INPUT-01** Add timed Script mode and reset. Depends: UI-04. Acceptance: three golden cards appear in sequence and five resets return identical state.
+- [x] **INPUT-02** Add Manual mode with speaker selection. Depends: UI-04. Acceptance: submitted text traverses the same endpoint and cannot submit blank turns.
+- [ ] **INPUT-03** Add browser microphone adapter. Interim results, explicit unsupported/denied/error states, and one-click fallbacks are complete; acceptance still requires a live microphone-permission rehearsal in Chrome or Edge.
+
+## Phase 4 — Optional semantic resolver (P1)
+
+- [x] **AI-01** Add server-only Gemini adapter. Depends: API-01. Acceptance: it is disabled by default and no credential enters browser code.
+- [x] **AI-02** Validate model output and isolate it from evidence. Depends: AI-01. Acceptance: malformed output and timeout degrade honestly; the optional resolver is not permitted to return evidence IDs or quotations.
+
+## Phase 5 — Verification and delivery (P0)
+
+- [x] **TEST-01** Unit-test schemas, resolver, gate, ACL, retrieval, collision checks, supersession, and verifier. Acceptance: required safety and golden fixtures pass.
+- [x] **GRAPH-01** Add an in-memory Graphify projection. Acceptance: it projects only authorised active facts, is idempotent, and cannot create evidence from conversation context.
+- [x] **GRAPH-02** Add bounded evidence-path explanations. Acceptance: a verified conflict can expose a cycle-safe path with stored fact IDs in the evidence drawer.
+- [x] **SOURCE-01** Define the read-only SourceAdapter contract. Acceptance: adapters expose explicit health and refresh states without provider types, credentials, or verification logic leaking into the engine.
+- [x] **SOURCE-02** Add GitHub issue normalisation. Acceptance: a read-only issue payload deterministically produces a revisioned SourceObject and atomic state, label, and assignee facts; it never infers dependencies from free text.
+- [x] **SOURCE-03** Add server-only GitHub issue client. Acceptance: it is disabled by default, uses bounded read-only requests and optional ETags, and exposes invalid configuration, unchanged data, and provider failure explicitly.
+- [x] **SOURCE-04** Assemble the read-only GitHub adapter. Acceptance: configured issue refreshes produce authorised normalised facts; unchanged and unavailable source states remain distinct; it is not yet connected to the meeting-analysis pipeline.
+- [x] **RECEIPT-01** Add deterministic Decision Receipt builder. Acceptance: accepted wording, verifier outcome, graph-path IDs, and immutable-by-convention source revision snapshots are created only from authorised active facts.
+- [x] **DOMAIN-01** Add legacy-to-v2 adapters. Acceptance: current event and fact contracts can migrate additively while preserving raw text, source wording, ACLs, revisions, and supersession state.
+- [x] **SOURCE-05** Add GitHub source configuration boundary. Acceptance: live source remains opt-in, repository configuration is validated, and the configured adapter receives a fixed demo principal ACL.
+- [x] **SOURCE-06** Add GitHub source health endpoint. Acceptance: disabled configuration produces an explicit 503 unavailable state without network access.
+- [x] **SOURCE-07** Add manual GitHub issue refresh endpoint. Acceptance: identifier validation happens before source access; disabled, unchanged, and refreshed outcomes remain distinguishable.
+- [x] **SOURCE-08** Expose optional live-source health in the console. Acceptance: its explicit ready, checking, and unavailable states never change the fixture-source readiness or imply that live facts participate in verification.
+- [x] **DOC-05** Document the optional live-source boundary. Acceptance: setup and troubleshooting explain that source health is separate from demo fixtures and does not alter the verification pipeline.
+- [x] **DEMO-03** Add deterministic demo preflight and microphone rehearsal runbook. Acceptance: one command checks the test/build baseline and a hardware checklist distinguishes demonstrated microphone behaviour from the Script/Manual fallback.
+- [x] **A11Y-01** Restore focus after evidence inspection. Acceptance: closing the modal evidence drawer returns keyboard focus to its invoking control.
+- [x] **A11Y-02** Restore focus after evaluation inspection. Acceptance: closing or escaping the modal evaluation drawer returns focus to its invoking control.
+- [x] **A11Y-03** Expose non-visual source and input-mode state. Acceptance: optional-source outcomes announce meaningful state and the selected control-rail input is programmatically conveyed.
+- [x] **TEST-06** Cover accessibility and source boundaries in Edge. Acceptance: the checked browser path verifies modal focus return and confirms optional live-source availability never changes fixture readiness.
+- [x] **DEMO-04** Add an automated judge-time guard. Acceptance: the Edge scripted path produces all three verified cards and finishes within the documented 90-second budget.
+- [x] **SECURITY-01** Harden the optional GitHub error boundary. Acceptance: credentials remain server-only and provider failures cannot echo sensitive request detail into a result.
+- [x] **DEMO-05** Add a browser-ready smoke command. Acceptance: a documented command runs the non-screenshot Edge interaction checks for controls, modal focus, source boundaries, and the judge-time guard.
+- [x] **TEST-07** Verify input-mode semantics in Edge. Acceptance: Script, Manual, and Microphone controls expose the selected state with `aria-pressed` in the running interface.
+- [x] **HARDEN-04** Cancel optional source-health callbacks on lifecycle changes. Acceptance: a stale response after Reset, Pause, Stop, or mode change cannot alter a subsequent meeting state.
+- [x] **A11Y-04** Contain keyboard focus in modal drawers. Acceptance: Tab and Shift+Tab remain within evidence and evaluation dialogs until the user closes them.
+- [x] **GRAPH-03** Project v2 facts into Graphify. Acceptance: authoritative v2 dependency/approval edges retain the originating Fact ID.
+- [x] **RECEIPT-02** Validate final Decision Receipts at runtime. Acceptance: receipt output is parsed through the canonical Zod contract before it can be returned.
+- [x] **DOMAIN-02** Add entity alias registry. Acceptance: aliases resolve to stable IDs and duplicate labels abstain rather than creating entities.
+- [x] **DOMAIN-03** Add current-state resolver. Acceptance: superseded facts are excluded from current verification while successor facts remain available.
+- [x] **GRAPH-04** Add bounded impact queries. Acceptance: a changed prerequisite can identify dependent graph nodes with supporting Fact IDs.
+- [x] **DOMAIN-04** Enforce current-state filtering in v2 retrieval and verification. Acceptance: a superseded fact cannot be retrieved or yield a conflict through either engine seam.
+- [x] **TEST-05** Add source/graph adversarial contracts. Acceptance: unavailable sources, prompt-injection-like transcript text, topic switching, ambiguous owners, and graph cycles cannot manufacture a conflict or hang analysis.
+- [x] **TEST-02** Test API success, invalid input, bounded context, restricted variant, approval variant, and provider failure. Acceptance: response contracts and failure language pass.
+- [x] **TEST-03** Add Playwright consent → script → evidence → reset and manual-input flows. Acceptance: stable in installed Edge.
+- [x] **TEST-03A** Add receipt creation browser coverage. Acceptance: a verified manual conflict creates a server-validated Decision Receipt from the displayed evidence IDs.
+- [x] **TEST-04** Add frozen 27-case evaluation and read-only report route. Acceptance: all cases pass, every expected collision is grounded, and false interrupt count is zero.
+- [x] **UI-06** Add measured evaluation drawer. Depends: TEST-04. Acceptance: aggregates and all 27 case outcomes load from `GET /api/evaluation`; no metric is decorative.
+- [x] **VIS-01** Capture required 1440×900 and 1920×1080 states. Acceptance: no clipping, overflow, hidden controls, or illegible metadata.
+- [ ] **DEPLOY-01** Verify Vercel configuration. Acceptance: hosted demo works without Gemini credentials. Status: intentionally deferred until explicit owner approval; no deployment has been attempted.
+- [ ] **DEMO-01** Rehearse scripted and microphone flows. Acceptance: golden narrative completes within 90 seconds with local fallback ready.
+
+## Demo freeze
+
+- [x] **HARDEN-01** Invalidate delayed analysis and microphone callbacks on Pause, Stop, Reset, and mode change. Acceptance: lifecycle tests deliver stale responses deliberately and verify no card or error can reappear.
+- [x] **HARDEN-02** Limit short replies and pronouns to current unambiguous context. Acceptance: topic-change, ambiguous-owner, negation, and date regressions pass.
+- [x] **HARDEN-03** Add 20 additional language regression cases outside the displayed 27-case corpus. Acceptance: paraphrases and safety cases pass without changing the original evaluation expectations.
+- [x] **DEMO-02** Add presenter-controlled Next demo beat. Acceptance: browser test advances all three beats, blocks playback while paused, and verifies Reset restores the first beat.
+
+- [ ] All P0 tasks and safety tests pass.
+- [x] Script and Reset pass five consecutive runs.
+- [x] Hosted and local builds use the same fixtures and copy.
+- [x] No real-looking secret exists in source or examples.
+- [x] Every source surface says **Demo fixture**.
+- [x] Frozen 27-case run passes with 100% grounded evidence and zero false interrupts.
+- [x] README recovery steps are verified on the demo laptop.
+- [ ] No new feature or dependency is added during the final 24 hours; only proven bug fixes are permitted.
