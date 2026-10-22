@@ -18,7 +18,7 @@ Deadline shown by the inspected rules: October 23, 2026, 11:59 PM Pacific (Octob
 
 ## Required deliverables
 
-- [ ] Public source repo with MIT license and clearly labeled reusable pattern.
+- [x] Public [ClashPoint-AWS source repo](https://github.com/Xenon010101/ClashPoint-AWS) with MIT license and clearly labeled reusable pattern; verified October 22, 2026.
 - [ ] Published Builder Center article explaining the agent and Decider's decision.
 - [ ] Public video under three minutes on YouTube, Vimeo, Facebook Video or Youku.
 - [ ] Actual repo/video links; remove draft placeholders.

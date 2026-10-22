@@ -26,6 +26,7 @@ Changes reach the request/response schemas, analyze route, reusable routing patt
 - [x] Linux standalone image built and local non-root container rehearsal checked; see VERIFICATION.md.
 - [ ] Actual Decider 2B + Bedrock smoke test and model evaluation: requires local model server and AWS account setup.
 - [x] Owner reports organizer-confirmed eligibility on October 22, 2026; prior work remains disclosed.
+- [x] Separate public ClashPoint-AWS repository published with MIT license; original ClashPoint repository made private and both settings verified.
 - [ ] AWS execution, article/video publication and submission: require owner's account and actual execution. See SUBMISSION_CHECKLIST.md.
 
 ## Design
